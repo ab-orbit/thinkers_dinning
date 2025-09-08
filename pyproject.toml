@@ -1,0 +1,10 @@
+[project]
+name = "lunching-philosophers"
+version = "0.1.0"
+description = "Add your description here"
+requires-python = ">=3.12"
+dependencies = [
+    "agno>=1.8.1",
+    "anthropic>=0.66.0",
+    "yfinance>=0.2.65",
+]
