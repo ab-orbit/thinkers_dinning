@@ -1,0 +1,78 @@
+# Stage 2 - Find the gap - structured companion to topic_dossier.md
+# Schema mirrors the gap-to-topic skill's .gaps.yml contract (per the
+# ai-research-skills catalog): run_type/recall/pipeline at top level,
+# per-gap open_confidence/verdict/verdict_reason.
+downstream_consumer: research-design-helper
+run_type: scoping_pass          # NOT a full recall - see recall block below
+recall:
+  queries_run: 2
+  followups_run: 4              # author/venue disambiguation searches
+  screen: none                  # no BM25/relevance screening tool available in this session
+  sources_reachable: [web_search]
+  sources_blocked: [crossref_api, emerald, sagepub, tandfonline]
+  limitation: >
+    This is a single-session scoping pass, not a systematic review. Absence
+    of a directly-matching prior paper in these results is weak evidence at
+    best -- a real Gate 1 check needs a proper recall pass (Scopus/WoS/
+    Semantic Scholar full query + citation chasing) before anyone commits to
+    this topic.
+
+pipeline: "inquiry organizational"
+
+gaps:
+  - id: G1
+    statement: >
+      Appreciative Inquiry (AI) is applied as an organizational-change
+      methodology built on a "positive core" / 4-D cycle, but its explicit
+      grounding in Dewey's pragmatist logic of inquiry (problematic
+      situation -> observation -> hypothesis -> reasoning -> testing) is
+      under-theorized -- and the two literatures (AI-practice reviews and
+      pragmatist-inquiry organization theory) do not appear to cross-cite
+      each other in this session's search results.
+    evidence_for_open:
+      - source: aisystematicreview2025
+        note: >
+          2025 systematic review (68 articles, Scopus) explicitly names a
+          gap in "understanding the theoretical anchors" of Appreciative
+          Inquiry, and flags concentration in healthcare/education and a
+          global-north-and-Pacific sampling bias.
+      - source: cho2024appreciative
+        note: >
+          2024 integrative review across three disciplines synthesizes AI
+          outcomes but does not (per its abstract-level material surfaced
+          here) trace those outcomes back to Dewey's inquiry stages.
+      - source: martela2015fallible
+        note: >
+          Independently develops a pragmatist ("fallible inquiry")
+          philosophy of science for organizational research, but frames it
+          as a research methodology, not as a lens on practitioner
+          interventions like AI.
+      - source: brandi2024lessons
+        note: >
+          Uses Deweyan inquiry to reframe organizational learning as
+          tension-resolution, again without engaging AI-as-practice.
+    open_confidence: low-to-medium
+    dead_end_evidence: none_found
+    borderline_reason: >
+      Two-query scan; a paper doing exactly this cross-walk may exist
+      outside what web search surfaced (e.g., in AI & Organizational
+      Development-specific journals not indexed prominently, or pre-2020
+      literature this pass didn't search for).
+    verdict: conditional-go
+    verdict_reason: >
+      The 2025 and 2024 reviews already name "theoretical anchors" as a
+      live future-research item, which lowers the risk that this is a
+      solved problem -- but Gate 1 here rests on 2 search queries, not a
+      real recall pass. Conditional on redoing Gate 1 properly before
+      committing time to it.
+
+open_questions:
+  - Has any paper explicitly mapped AI's 4-D cycle (Discovery-Dream-Design-
+    Destiny) onto Dewey's 5-phase inquiry model, stage for stage?
+  - Does the "global north and Pacific" sampling bias noted in the 2025
+    review hold up under a full recall pass, or was that an artifact of the
+    68-article Scopus sample?
+  - Is there existing critique-of-AI literature (e.g., from critical
+    management studies) that already raises the "insufficiently
+    philosophically grounded" complaint, which would make this gap partly
+    closed rather than open?
