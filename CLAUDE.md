@@ -110,3 +110,31 @@ Use `python test_setup.py` to validate:
 - Environment configuration and API keys
 - Module imports (agno, pydantic, local modules)
 - Pydantic model creation and structure
+
+## Research Pipeline Monitor
+
+A second, unrelated CLI lives in this repo: `pipeline_monitor.py` installs
+and tracks the 8-stage research pipeline from the
+[ai-research-skills](https://github.com/WenyuChiou/ai-research-skills)
+Claude Code plugin catalog (literature → gap → design → plan → build → run →
+visualise → write → submit).
+
+- **`scripts/install_research_agents.sh`**: adds the `ai-research-skills`
+  marketplace and installs its Claude Code plugins (agents) at project
+  scope. `--core-only` installs just `research-workspace`; `--scope user`
+  installs for all projects.
+- **`pipeline_monitor.py agents`**: lists the 16 agents/skills, grouped by
+  plugin, with live install status via `claude plugin list` when the
+  `claude` CLI is on PATH.
+- **`pipeline_monitor.py status --path DIR [--watch SECONDS] [--json]`**:
+  detects each stage's completion by looking for the artifact its skill(s)
+  are contracted to emit (`*.bib`, `*.gaps.yml`, `design_brief.md`,
+  `project_manifest.yml`, `experiment_matrix.yml`/`run_log.md`,
+  `claims.yml`/`figures.yml`, `reviewer-response.md`) under the given
+  directory. Stages 4 (Build the model) and 6 (Visualise & interpret) have
+  no machine-checkable manifest upstream, so they're confirmed manually via
+  `stage_4: done` / `stage_6: done` lines in that project's
+  `.research/pipeline_state.yml`.
+
+This tool is standalone (stdlib only) and does not depend on `agno` or the
+philosophical refinement workflow above.

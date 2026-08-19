@@ -104,6 +104,45 @@ All sessions are automatically logged to timestamped markdown files with:
 - Iteration-by-iteration assessment and refinement details
 - Final results and completion status
 
+## Research Pipeline Monitor
+
+Alongside the philosophical refinement workflow, this repo also ships a
+standalone CLI for installing and monitoring the 8-stage research pipeline
+promised by the [ai-research-skills](https://github.com/WenyuChiou/ai-research-skills)
+catalog (literature -> gap -> design -> build -> run -> visualise -> write ->
+submit).
+
+### Install the agents (Claude Code plugins)
+```bash
+bash scripts/install_research_agents.sh          # core + all optional plugins, project scope
+bash scripts/install_research_agents.sh --core-only
+```
+
+### Monitor pipeline progress
+```bash
+# List the 16 agents/skills and (if the `claude` CLI is on PATH) their install status
+python pipeline_monitor.py agents
+
+# Check which pipeline stages a research project has completed, based on
+# the artifacts each skill is contracted to emit (design_brief.md,
+# project_manifest.yml, claims.yml, ...)
+python pipeline_monitor.py status --path /path/to/research/project
+
+# Keep watching, refreshing every 30 seconds
+python pipeline_monitor.py status --path /path/to/research/project --watch 30
+
+# Machine-readable output
+python pipeline_monitor.py status --path /path/to/research/project --json
+```
+
+Stages 4 (Build the model) and 6 (Visualise & interpret) have no
+machine-checkable manifest in the catalog, so they're tracked manually via
+an optional `.research/pipeline_state.yml` file in the monitored project:
+```yaml
+stage_4: done
+stage_6: done
+```
+
 ## Example Usage
 
 ### Default Test Statement
